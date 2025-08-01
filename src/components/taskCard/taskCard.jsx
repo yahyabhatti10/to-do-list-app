@@ -1,9 +1,13 @@
-function TaskCard({task})
+import './taskCard.css';
+
+function TaskCard({id, task, onEd, onDel})
 {
     return (
-        <div style={{ border: '1px solid #ccc', margin: '8px', padding: '8px' }}>
-      {task}
-    </div>
+        <div className='task-card'>
+            {task}
+            <button className='edit-button' onClick={()=>onEd(id)}>Edit</button>
+            <button className='delete-button' onClick={()=>onDel(id)}>Delete</button>
+        </div>
     );
 }
 export default TaskCard;

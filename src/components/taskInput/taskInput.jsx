@@ -15,7 +15,6 @@ function TaskInput({onAdd})
             return;
         }
         // console.log(`New task added: ${task}`)
-        alert(`New task added: ${task}`);
         setTaskInput("");
         onAdd(task);
     };
