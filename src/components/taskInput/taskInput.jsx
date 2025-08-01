@@ -1,36 +1,37 @@
-import {useState} from 'react'
-
-function TaskInput({onAdd})
-{
-    const [taskInput, setTaskInput] = useState("")
-
-    const handleSubmit = (e) =>
-    {
-        e.preventDefault();
-        const task = taskInput.trim().toLowerCase();
-        console.log(task)
-        if (!task) {
-            // console.log("Please enter a valid task before adding.")
-            alert("Please enter a valid task before adding.");
-            return;
-        }
+function TaskInput({ taskInput, setTaskInput, onAdd, onUpdate, isEditing }) {
+  function handleSubmit(e) {
+    e.preventDefault();
+    const task = taskInput.trim().toLowerCase();
+    console.log(task)
+    if (!task) {
+        // console.log("Please enter a valid task before adding.")
+        alert("Please enter a valid task before adding.");
+        return;
+    }
+    if (isEditing) {
+        //   console.log(`Task updated: ${taskInput}`)  
+        onUpdate();  
+    } 
+    else {
         // console.log(`New task added: ${task}`)
-        setTaskInput("");
-        onAdd(task);
-    };
-    
-    return (
-        <div>
-            <form onSubmit={handleSubmit}>
-                <input
-                    type="text"
-                    value={taskInput}
-                    onChange={(e) => setTaskInput(e.target.value)}
-                    placeholder="Enter your task"
-                />
-                <button type="submit">Add Task</button>
-            </form>
-        </div>
-    )
+      onAdd(task); 
+    }
+    setTaskInput("");    
+  }
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <input
+        type="text"
+        value={taskInput}
+        onChange={(e) => setTaskInput(e.target.value)}
+        placeholder="Enter task..."
+      />
+      <button type="submit">
+        {isEditing ? 'Update' : 'Add'}
+      </button>
+    </form>
+  );
 }
+
 export default TaskInput;

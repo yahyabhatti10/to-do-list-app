@@ -5,6 +5,8 @@ import TaskList from './components/taskList/taskList'
 
 function App() {
   const [tasks, setTasks] = useState([]);
+  const [currentTask, setCurrentTask] = useState("");
+  const [editingTask, setEditingTask] = useState(null);  
 
   function handleAddTask(taskDescription)
   {
@@ -14,36 +16,71 @@ function App() {
         isDone: false
       };
       console.log(tasks)
-      console.log(`New task in handleAddTask Function in App.jsx: ${newTask}`)
+      // console.log(`New task in handleAddTask Function in App.jsx: ${newTask}`)
       setTasks([...tasks, newTask])
+      alert(`Added Task: ${newTask.task}`)
+  }
+  
+  function handleEditTask(taskID, task) {
+    setCurrentTask(task);
+    setEditingTask(taskID);
   }
 
+  function handleUpdateTask() 
+  {
+    let updatedTask;
+    const updatedTasks = tasks.map((task) =>{
+      if(task.id === editingTask){
+        updatedTask = { ...task, task: currentTask } 
+        return { ...task, task: currentTask } }
+      return task
+    }
+    );
+    console.log(updatedTasks)
+    setTasks(updatedTasks);
+    alert(`Updated Task: ${updatedTask.task}`)
+    setEditingTask(null);
+    setCurrentTask('');
+  }
+  function handleDoneTask(taskID)
+  {
+      let doneTask;
+      const updatedTasks = tasks.map(task => {
+      if(task.id==taskID)
+      {
+          doneTask = task
+          return {...task, isDone: true}
+      }
+      // console.log(task)
+      return task  
+      })
+      console.log(updatedTasks)
+      setTasks(updatedTasks)
+      alert(`Done Task: ${doneTask.task}`)
+    }
   function handleDeleteTask(taskID)
   {
-      const updatedTasks = tasks.map(task => {
-        if(task.id==taskID)
-        {
-            // task = {...task, isDone: true}
-            return {...task, isDone: true}
-        }
-        // console.log(task)
-        return task  
-      })
-      // console.log(updatedTasks)
+      const deletedTask = tasks.find(task=> task.id === taskID)
+      console.log(deletedTask.task)
+
+      const updatedTasks = tasks.filter(task => task!==deletedTask)
+      console.log(updatedTasks)
       setTasks(updatedTasks)
-
-
+      alert(`Deleted Task ${deletedTask.task}`)
   }
 
-  function handleEditTask(taskID)
-  {
-    console.log(taskID)
-  }
+
   return (
     <>
       <h1>To Do List App</h1>
-      <TaskInput onAdd={handleAddTask}/>
-      <TaskList tasks={tasks} onEdit={handleEditTask} onDelete={handleDeleteTask}/>
+      <TaskInput
+        taskInput={currentTask}
+        setTaskInput={setCurrentTask}
+        onAdd={handleAddTask}
+        onUpdate={handleUpdateTask}
+        isEditing={editingTask !== null}
+      />
+      <TaskList tasks={tasks} onEdit={handleEditTask} onDone={handleDoneTask} onDelete={handleDeleteTask}/>
     </>
   )
 }

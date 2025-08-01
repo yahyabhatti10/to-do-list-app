@@ -14,13 +14,18 @@
   cursor: pointer;
 }
 
+.edit-button {
+    background-color: #035caf;
+}
+
+.done-button {
+    background-color: #4ad351;
+}
+
 .delete-button {
     background-color: #af0303;
 }
 
-.edit-button {
-    background-color: #035caf;
-}
 .task-card button:hover {
   background-color: #747474;
 }
