@@ -1,33 +1,26 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import {useState} from 'react'
+import TaskInput from './components/taskInput/taskInput'
+import TaskList from './components/taskList/taskList'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [tasks, setTasks] = useState([]);
 
+  function handleAddTask(taskDescription)
+  {
+      const newTask = {
+        id: Date.now(),
+        task: taskDescription
+      };
+      console.log(tasks)
+      console.log(`New task in handleAddTask Function in App.jsx: ${newTask}`)
+      setTasks([...tasks, newTask])
+  }
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <h1>To Do List App</h1>
+      <TaskInput onAdd={handleAddTask}/>
+      <TaskList tasks={tasks}/>
     </>
   )
 }
