@@ -1,3 +1,5 @@
+import './taskInput.css';
+
 function TaskInput({ taskInput, setTaskInput, onAdd, onUpdate, isEditing }) {
   function handleSubmit(e) {
     e.preventDefault();
@@ -23,9 +25,10 @@ function TaskInput({ taskInput, setTaskInput, onAdd, onUpdate, isEditing }) {
     <form onSubmit={handleSubmit}>
       <input
         type="text"
+        className="task-input"
         value={taskInput}
         onChange={(e) => setTaskInput(e.target.value)}
-        placeholder="Enter task..."
+        placeholder="Enter the Task"
       />
       <button type="submit">
         {isEditing ? 'Update' : 'Add'}

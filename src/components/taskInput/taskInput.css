@@ -1,0 +1,15 @@
+.task-input {
+  width: 65%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #000000;
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 0.3s ease;
+  margin-right: 10px;
+}
+
+.task-input:focus {
+  border-color: #ffffff;
+  background-color: #363636;
+}
